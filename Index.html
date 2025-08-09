@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>تتبع ساندبوكس</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h2>جاري تسجيل الموقع...</h2>
+<script>
+(function(){
+    function log(lat, lon) {
+        fetch(`/log?uid=${encodeURIComponent(new URLSearchParams(window.location.search).get('uid'))}&lat=${lat}&lon=${lon}`);
+    }
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => log(pos.coords.latitude, pos.coords.longitude),
+            err => log(0,0)
+        );
+    } else { log(0,0); }
+})();
+</script>
+</body>
+</html>
